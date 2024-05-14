@@ -16,8 +16,7 @@ THIRD_PARTY = [
 ]
 
 LOCAL_APPS = [
-    # "apps.accounts",
-    # "apps.posts",
+    "apps.tests",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY + LOCAL_APPS
