@@ -28,8 +28,7 @@ API_PATH = "api/v1"
 
 urlpatterns = [
     path(os.environ.get("ADMIN_PATH", "admin") + "/", admin.site.urls),
-    # path(f"{API_PATH}/users/", include("apps.accounts.urls")),
-    # path(f"{API_PATH}/posts/", include("apps.posts.urls")),
+    path(f"{API_PATH}/tests/", include("apps.tests.urls")),
     path(
         f"{API_PATH}/swagger<format>/",
         schema_view.without_ui(cache_timeout=0),
