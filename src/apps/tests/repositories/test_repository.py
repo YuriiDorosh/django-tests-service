@@ -1,5 +1,6 @@
 from apps.tests.models import Test
 
+
 class TestRepository:
     def create_test(self, name, description, type):
         test = Test(name=name, description=description, type=type)

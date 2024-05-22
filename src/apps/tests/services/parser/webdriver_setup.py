@@ -3,12 +3,13 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
+
 class WebDriverSetup:
     def __init__(self):
         self.options = Options()
-        self.options.add_argument('--headless')
-        self.options.add_argument('--no-sandbox')
-        self.options.add_argument('--disable-dev-shm-usage')
+        self.options.add_argument("--headless")
+        self.options.add_argument("--no-sandbox")
+        self.options.add_argument("--disable-dev-shm-usage")
         self.service = Service(ChromeDriverManager().install())
 
     def get_driver(self):
