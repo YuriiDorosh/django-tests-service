@@ -33,6 +33,15 @@ services:
     networks:
       - app-network
 
+  telegram_bot:
+    build:
+      context: ./telegram_bot
+    restart: always
+    volumes:
+      - ./telegram_bot:/app
+    networks:
+      - app-network
+
   postgre:
     container_name: postgre
     image: postgres:14
