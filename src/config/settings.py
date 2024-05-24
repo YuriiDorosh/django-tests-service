@@ -12,8 +12,6 @@ DEBUG = bool(os.environ.get("DEBUG", False))
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 
-SITE_URL = "https://mebelsale.com.ua/"
-
 config_folder = "components/"
 
 config_files = [
