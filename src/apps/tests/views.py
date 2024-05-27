@@ -24,14 +24,29 @@ class SetSettingsAPIView(APIView):
 
 class TestParseAPIView(APIView):
     def get(self, request):
-        settings = get_button_and_url()
         
-        url = settings['url']
+        settings_ua = get_button_and_url()
+        url_ua = settings_ua['url']
+        button_ua = settings_ua['button']
 
-        button = settings['button']
-        
-        result, errors = parse_and_click_button(url, button=button)
+        result_ua, errors_ua = parse_and_click_button(url_ua, button=button_ua)
 
-        if errors:
-            return Response({"message": "Failed to parse data", "errors": errors})
-        return Response({"message": "Data parsed successfully", "data": result})
+        url_ru = 'https://mebelsale.com.ua/ru/'
+        button_ru = 'Матрасы'
+
+        result_ru, errors_ru = parse_and_click_button(url_ru, button=button_ru)
+
+        response_data = {
+            "ua": {
+                "message": "Data parsed successfully" if not errors_ua else "Failed to parse data",
+                "data": result_ua if not errors_ua else None,
+                "errors": errors_ua if errors_ua else None
+            },
+            "ru": {
+                "message": "Data parsed successfully" if not errors_ru else "Failed to parse data",
+                "data": result_ru if not errors_ru else None,
+                "errors": errors_ru if errors_ru else None
+            }
+        }
+
+        return Response(response_data)
