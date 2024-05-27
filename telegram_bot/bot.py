@@ -95,15 +95,24 @@ async def run_tests(message: types.Message):
         async with session.get("http://backend:8000/api/v1/tests/test") as response:
             if response.status == 200:
                 result = await response.json()
-                if "errors" in result and result["errors"]:
-                    errors = result["errors"]
-                    logger.error(f"Tests failed with errors: {errors}")
-                    await message.reply(f"Тести не пройшли. Помилки: {errors}")
-                else:
-                    logger.info(
-                        f"Test run successfully for user {message.from_user.id}"
-                    )
-                    await message.reply(f"Результат тесту: {result['data']}")
+                uk_result = result.get("ua", {})
+                ru_result = result.get("ru", {})
+                
+                uk_message = (
+                    f"Тести для української версії:\n"
+                    f"Результат: {uk_result.get('data', 'Немає даних')}\n"
+                    f"Помилки: {uk_result.get('errors', 'Немає помилок')}\n"
+                )
+                ru_message = (
+                    f"Тести для російської версії:\n"
+                    f"Результат: {ru_result.get('data', 'Немає даних')}\n"
+                    f"Помилки: {ru_result.get('errors', 'Немає помилок')}\n"
+                )
+                
+                logger.info(
+                    f"Test run completed for user {message.from_user.id}"
+                )
+                await message.reply(f"{uk_message}\n{ru_message}")
             else:
                 logger.error(
                     f"Failed to run tests for user {message.from_user.id} with status {response.status}"
